@@ -4,9 +4,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import dts from "vite-plugin-dts";
-import pkg from "./package.json";
-
-const projName: string = pkg.name;
 
 export default defineConfig({
     plugins: [
@@ -18,12 +15,21 @@ export default defineConfig({
     ],
     build: {
         lib: {
-            entry: path.resolve(__dirname, "src/index.ts"),
-            name: projName,
-            fileName: (format) => `${projName}.${format}.js`,
+            entry: {
+                index: path.resolve(__dirname, "src/index.ts"),
+                client: path.resolve(__dirname, "src/client/index.ts"),
+            },
+            //name: projName,
+            //fileName: (format) => `${projName}.${format}.js`,
+            formats: ["es"],
         },
         rollupOptions: {
             external: [],
+            output: {
+                entryFileNames: "[name].js",
+                chunkFileNames: "chunks/[name]-[hash].js",
+                assetFileNames: "[name][extname]",
+            },
         },
         //源码映射
         sourcemap: true,

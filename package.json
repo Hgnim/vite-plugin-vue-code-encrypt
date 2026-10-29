@@ -6,19 +6,24 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/external/vite-plugin-vue-code-encrypt.umd.cjs",
-  "module": "./dist/external/vite-plugin-vue-code-encrypt.es.js",
+  "main": "./dist/external/index.js",
   "types": "./dist/external/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/external/index.d.ts",
-      "import": "./dist/external/vite-plugin-vue-code-encrypt.es.js",
-      "require": "./dist/external/vite-plugin-vue-code-encrypt.umd.cjs"
+      "default": "./dist/external/index.js"
+    },
+    "./client": {
+      "types": "./dist/external/client/index.d.ts",
+      "default": "./dist/external/client.js"
     },
     "./bundle": {
       "types": "./dist/bundle/index.d.ts",
-      "import": "./dist/bundle/vite-plugin-vue-code-encrypt.es.js",
-      "require": "./dist/bundle/vite-plugin-vue-code-encrypt.umd.cjs"
+      "default": "./dist/bundle/index.js"
+    },
+    "./bundle/client": {
+      "types": "./dist/bundle/client/index.d.ts",
+      "default": "./dist/bundle/client.js"
     }
   },
   "scripts": {
