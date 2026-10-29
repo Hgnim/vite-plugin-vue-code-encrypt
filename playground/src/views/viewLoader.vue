@@ -1,5 +1,5 @@
 <script setup>
-import { decryptString } from '/src/utils/cryptoString.js';
+import { decryptStringToString } from "ez-encrypt";
 import { ref,defineAsyncComponent } from 'vue';
 const rootView = () => import('/src/views/root/root.vue');
 
@@ -14,7 +14,7 @@ async function enter_click() {
 
     console.log(rv)
 
-    const dec = decryptString(rv.enc, pwIpt.value);
+    const dec = decryptStringToString(rv.enc, pwIpt.value);
 
     console.log(dec)
 

@@ -1,4 +1,4 @@
-import { encryptString } from "./utils/cryptoString.ts";
+import { encryptStringToString } from "ez-encrypt";
 
 export default function vueCodeEncrypt(opt: { targetFile: any; password: string }) {
     return {
@@ -21,7 +21,7 @@ export default function vueCodeEncrypt(opt: { targetFile: any; password: string 
                     },
                 );*/
 
-                const encrypted = encryptString(chunk.code, opt.password);
+                const encrypted = encryptStringToString(chunk.code, opt.password);
 
                 chunk.code = `export default ${JSON.stringify({
                     enc: encrypted,

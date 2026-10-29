@@ -30,6 +30,6 @@
     "vite-plugin-dts": "^5.1.2"
   },
   "dependencies": {
-    "crypto-js": "^4.2.0"
+    "ez-encrypt": "github:Hgnim/ez-encrypt"
   }
 }
