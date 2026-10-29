@@ -11,19 +11,19 @@
   "exports": {
     ".": {
       "types": "./dist/external/index.d.ts",
-      "default": "./dist/external/index.js"
+      "node": "./dist/external/index.js"
     },
     "./client": {
       "types": "./dist/external/client/index.d.ts",
-      "default": "./dist/external/client.js"
+      "browser": "./dist/external/client.js"
     },
     "./bundle": {
       "types": "./dist/bundle/index.d.ts",
-      "default": "./dist/bundle/index.js"
+      "node": "./dist/bundle/index.js"
     },
     "./bundle/client": {
       "types": "./dist/bundle/client/index.d.ts",
-      "default": "./dist/bundle/client.js"
+      "browser": "./dist/bundle/client.js"
     }
   },
   "scripts": {
@@ -44,11 +44,15 @@
   },
   "homepage": "https://github.com/Hgnim/vite-plugin-vue-code-encrypt#readme",
   "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@vitejs/plugin-vue": "^6.0.10",
     "typescript": "^6.0.3",
     "vite": "^8.3.5",
     "vite-plugin-dts": "^5.1.2"
   },
   "dependencies": {
-    "ez-encrypt": "github:Hgnim/ez-encrypt"
+    "ez-encrypt": "github:Hgnim/ez-encrypt",
+    "vue": "^3.5.44",
+    "vue3-sfc-loader": "^0.9.5"
   }
 }

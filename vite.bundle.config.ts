@@ -4,9 +4,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import dts from "vite-plugin-dts";
+//import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
     plugins: [
+        //vue(),
         dts({
             include: ["src"],
             outDirs: "./dist/bundle",
