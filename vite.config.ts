@@ -1,16 +1,18 @@
+//external
 import { defineConfig } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import dts from "vite-plugin-dts";
+import pkg from "./package.json";
 
-const projName: string = "vite-plugin-vue-code-encrypt";
+const projName: string = pkg.name;
 
 export default defineConfig({
     plugins: [
         dts({
             include: ["src"],
-            outDirs: "./dist",
+            outDirs: "./dist/external",
             tsconfigPath: "./tsconfig.json",
         }),
     ],
@@ -21,11 +23,15 @@ export default defineConfig({
             fileName: (format) => `${projName}.${format}.js`,
         },
         rollupOptions: {
-            external: [],
+            external: [
+                ...Object.keys(pkg.dependencies ?? {}),
+                ...Object.keys(pkg.peerDependencies ?? {}),
+            ],
         },
         //源码映射
         sourcemap: true,
         //压缩
         minify: true,
+        outDir: "dist/external",
     },
 });

@@ -1,31 +1,40 @@
 import { encryptStringToString } from "ez-encrypt";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { dirname, join } from "node:path";
 
-export default function vueCodeEncrypt(opt: { targetFile: any; password: string }) {
+export default function vueCodeEncrypt(opt: {
+    targets: {
+        name: string;
+        filePath: any;
+        password: string;
+    }[],
+    outDir?:string,
+}) {
+    if (opt.outDir === undefined) 
+        opt.outDir = "public/encVueSource";
+
+
     return {
         name: "vueCodeEncrypt",
         apply: "build",
-        generateBundle(_, bundle) {
-            for (const [fileName, chunk] of Object.entries(bundle)) {
-                if (
-                    chunk.type !== "chunk" ||
-                    !chunk.facadeModuleId?.includes(opt.targetFile)
-                )
-                    continue;
-                
-                /*chunk.code = chunk.code.replace(
-                    /(\bfrom\s*["']|import\s*["'])(\.\/[^"']+)(["'])/g,
-                    (_, pre, rel, post) => {
-                        // 去掉开头的 ./，拼到 /assets/ 下
-                        const abs = "/assets/" + rel.replace(/^\.\//, "");
-                        return `${pre}${abs}${post}`;
-                    },
-                );*/
+        buildStart() {
+            mkdirSync(opt.outDir, { recursive: true });
 
-                const encrypted = encryptStringToString(chunk.code, opt.password);
+            for (const { name, filePath, password } of opt.targets) {
+                if (!password)
+                    throw new Error(`[vueCodeEncrypt] 目标 ${name} 缺少 password`);
 
-                chunk.code = `export default ${JSON.stringify({
-                    enc: encrypted,
-                })};`;
+                const sourceContent = readFileSync(filePath, "utf8");
+                const outPath = join(opt.outDir, `${name}.enc.json`);
+                const encContent = encryptStringToString(sourceContent, password);
+
+                writeFileSync(outPath, JSON.stringify(
+                    {
+                        enc: encContent,
+                    }
+                ));
+
+                console.log(`[vueCodeEncrypt] 加密完成： ${filePath} ==> ${outPath}`);
             }
         },
     };
