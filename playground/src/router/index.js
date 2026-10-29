@@ -6,7 +6,7 @@ export default createRouter({
         {
             path: '/',
             name: 'root',
-            component: () => import('/src/views/root/root.vue'),
+            component: () => import('/src/views/viewLoader.vue'),
         },
     ]
 });
