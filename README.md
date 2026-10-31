@@ -2,4 +2,6 @@
 
 ~未完工~
 
-放弃该项目
+**该项目方案已被放弃**
+
+新方案：https://github.com/Hgnim/auto-encrypt-and-level-key
